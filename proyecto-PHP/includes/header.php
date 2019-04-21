@@ -1,4 +1,5 @@
 <?php require_once 'conexion.php' ?>
+<?php require_once 'includes/helpers.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +18,27 @@
       margin-top: 20px;
       background-color: #f5f5f5f5;
     }
+
+    .alerta {
+      margin-top: 5px;
+      padding: 5px;
+      font-size: 14px;
+      color: white;
+      box-shadow: 0px 1px 3px #ccc;
+    }
+
+    .alerta-ok {
+      background: green;
+    }
+
+    .alerta-notok {
+      background: red;
+    }
+
+    .enlaces {
+      display: block;
+      margin-top: 10px;
+    }
   </style>
 </head>
 
@@ -33,24 +55,44 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="index.php">Inicio <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Categorías
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <?php
+              $categories = getCategories($db);
+              if (!empty($categories)) :
+                while ($categorie = mysqli_fetch_assoc($categories)) :
+                  ?>
+                  <a class="dropdown-item" href="categoria.php?id=<?= $categorie['id'] ?>"><?= $categorie['nombre']; ?></a>
+                <?php
+              endwhile;
+            endif;
+            ?>
+              <!--
               <a class="dropdown-item" href="#">Acción</a>
               <a class="dropdown-item" href="#">Rol</a>
               <a class="dropdown-item" href="#">Deportes</a>
               <a class="dropdown-item" href="#">Plataformas</a>
+              -->
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Sobre mí</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contacto</a>
-          </li>
+          <?php if (isset($_SESSION['usuario'])) : ?>
+            <li class="nav-item">
+              <a class="btn btn-outline-info mr-2 mb-2" href="#">Mis datos</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-outline-info mr-2 mb-2" href="new-entrada.php">Crear entrada</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-outline-info mr-2 mb-2" href="new-category.php">Crear categoría</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-outline-warning mr-2 mb-2" href="logout.php">Cerrar sesión</a>
+            </li>
+          <?php endif; ?>
         </ul>
         <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="search" placeholder="Buscar..." aria-label="Search">

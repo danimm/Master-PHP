@@ -12,4 +12,6 @@ mysqli_query($db, "set names 'utf8'");
 
 // Iniciar la sesión
 
-session_start();
+if(!isset($_SESSION)){
+  session_start();
+}

@@ -46,11 +46,35 @@ function getCategories($conexion)
   return $result;
 }
 
-function getUltimasEntradas($conexion)
+function getCategorie($conexion, $id)
+{
+  $sql = "select * from categorias where id = $id;";
+  $categories = mysqli_query($conexion, $sql);
+  $result = array();
+  if ($categories && mysqli_num_rows($categories) >= 1) {
+    $result = mysqli_fetch_assoc($categories);
+  }
+
+  return $result;
+}
+
+function getEntradas($conexion, $categoria_id = null, $limit = null)
 {
   $sql = "select e.*, c.nombre as 'categoria' from entradas e " .
-    "inner join categorias c on c.id = e.categoria_id " .
-    "order by e.id DESC limit 4";
+    "inner join categorias c on c.id = e.categoria_id ";
+
+  if ($categoria_id) {
+
+    $sql .= "where e.categoria_id = $categoria_id ";
+  }
+
+  $sql .= "order by e.id DESC ";
+
+  if ($limit) {
+    $sql .= "limit 4;";
+  }
+
+
   $entradas = mysqli_query($conexion, $sql);
   $result = array();
   if ($entradas && mysqli_num_rows($entradas) >= 1) {

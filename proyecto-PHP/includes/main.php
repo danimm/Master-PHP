@@ -2,7 +2,7 @@
   <h1>Últimas entradas</h1>
   <article>
     <?php
-    $entradas = getUltimasEntradas($db);
+    $entradas = getEntradas($db, true);
     if (!empty($entradas)) :
       while ($entrada = mysqli_fetch_assoc($entradas)) : ?>
         <div class="card mb-4">
@@ -19,6 +19,6 @@
   endif;
   ?>
 
-    <a href="#" class="btn btn-primary">Ver todas las entradas</a>
+    <a href="entradas.php" class="btn btn-primary">Ver todas las entradas</a>
   </article>
 </div>

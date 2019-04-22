@@ -39,6 +39,14 @@
       display: block;
       margin-top: 10px;
     }
+
+    /* .dropdown-toggle:hover+.dropdown-menu {
+      display: none;
+    }
+
+    .dropdown-menu {
+      display: block;
+    } */
   </style>
 </head>
 
@@ -57,31 +65,21 @@
           <li class="nav-item active">
             <a class="nav-link" href="index.php">Inicio <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Categorías
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <?php
-              $categories = getCategories($db);
-              if (!empty($categories)) :
-                while ($categorie = mysqli_fetch_assoc($categories)) :
-                  ?>
-                  <a class="dropdown-item" href="categoria.php?id=<?= $categorie['id'] ?>"><?= $categorie['nombre']; ?></a>
-                <?php
-              endwhile;
-            endif;
-            ?>
-              <!--
-              <a class="dropdown-item" href="#">Acción</a>
-              <a class="dropdown-item" href="#">Rol</a>
-              <a class="dropdown-item" href="#">Deportes</a>
-              <a class="dropdown-item" href="#">Plataformas</a>
-              -->
-          </li>
+          <?php
+          $categories = getCategories($db);
+          if (!empty($categories)) :
+            while ($categorie = mysqli_fetch_assoc($categories)) :
+              ?>
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="categoria.php?id=<?= $categorie['id']; ?>"><?= $categorie['nombre']; ?></a>
+              </li>
+            <?php
+          endwhile;
+        endif;
+        ?>
           <?php if (isset($_SESSION['usuario'])) : ?>
             <li class="nav-item">
-              <a class="btn btn-outline-info mr-2 mb-2" href="#">Mis datos</a>
+              <a class="btn btn-outline-info mr-2 mb-2" href="user.php">Mis datos</a>
             </li>
             <li class="nav-item">
               <a class="btn btn-outline-info mr-2 mb-2" href="new-entrada.php">Crear entrada</a>

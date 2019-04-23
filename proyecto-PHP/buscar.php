@@ -1,11 +1,10 @@
-<?php require_once 'includes/header.php'; ?>
 <?php
-$categoria = getCategorie($db, $_GET['id']);
-
-if (!isset($categoria['id'])) {
+if (empty($_POST['buscar'])) {
   header("Location: index.php");
 }
+
 ?>
+<?php require_once 'includes/header.php'; ?>
 
 
 <div class="container-fluid">
@@ -13,15 +12,12 @@ if (!isset($categoria['id'])) {
     <!-- Parte Central-->
     <div class="col">
       <div class="container mt-4">
-        <?php
-        $categoria_actual = getCategorie($db, $_GET['id']);
-        ?>
-        <h1>Entradas de <?= $categoria_actual['nombre']; ?></h1>
+        <h1>Resultados de la búsqueda: </h1>
         <article>
           <?php
-          $entradas = getEntradas($db, $_GET['id']);
-          if (!empty($entradas) && mysqli_num_rows($entradas) >= 1) :
-            while ($entrada = mysqli_fetch_assoc($entradas)) : ?>
+          $busqueda = getEntradas($db, null, null, $_POST['buscar']);
+          if (!empty($busqueda) && mysqli_num_rows($busqueda) >= 1) :
+            while ($entrada = mysqli_fetch_assoc($busqueda)) : ?>
               <div class="card mb-4 mt-4">
                 <div class="card-header">
                   <?= $entrada['fecha'] . " - " . $entrada['categoria'] . ' | Autor: ' . $entrada['usuario']; ?>

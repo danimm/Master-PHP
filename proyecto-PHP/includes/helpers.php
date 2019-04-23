@@ -58,14 +58,19 @@ function getCategorie($conexion, $id)
   return $result;
 }
 
-function getEntradas($conexion, $categoria_id = null, $limit = null)
+function getEntradas($conexion, $categoria_id = null, $limit = null, $busqueda = null)
 {
-  $sql = "select e.*, c.nombre as 'categoria' from entradas e " .
-    "inner join categorias c on c.id = e.categoria_id ";
+  $sql = "select e.*, c.nombre as 'categoria', concat(u.nombre, ' ', u.apellidos) as 'usuario' from entradas e " .
+    "inner join categorias c on e.categoria_id = c.id " .
+    "inner join usuarios u on u.id = e.usuario_id ";
 
   if ($categoria_id) {
 
     $sql .= "where e.categoria_id = $categoria_id ";
+  }
+
+  if (!empty($busqueda)) {
+    $sql .= "where e.titulo like '%$busqueda%' ";
   }
 
   $sql .= "order by e.id DESC ";
@@ -83,3 +88,24 @@ function getEntradas($conexion, $categoria_id = null, $limit = null)
 
   return $result;
 }
+
+function getEntrada($conexion, $id)
+{
+  $sql = "select e.*, c.nombre as 'categoria', concat(u.nombre, ' ', u.apellidos) as 'usuario' from entradas e " .
+    "inner join categorias c on e.categoria_id = c.id " .
+    "inner join usuarios u on u.id = e.usuario_id " .
+    "where e.id = $id;";
+
+
+
+  $entrada = mysqli_query($conexion, $sql);
+  $result = array();
+
+  if ($entrada && mysqli_num_rows($entrada) >= 1) {
+    $result = mysqli_fetch_assoc($entrada);
+  }
+  return $result;
+}
+
+function buscarEntradas()
+{ }

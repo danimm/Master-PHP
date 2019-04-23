@@ -14,26 +14,39 @@ if (isset($_POST)) {
   // Validar los datos antes de guardarlos en la base de datos
   if (empty($titulo)) {
     $errores['titulo'] = "El titulo no es válido..🤔";
-    header("Location: new-entrada.php");
   }
 
   if (empty($descripcion)) {
     $errores['descripcion'] = "La descripcion no es válida..🤔";
-    header("Location: new-entrada.php");
   }
   if (empty($categoria) && !is_numeric($categoria)) {
     $errores['categoria'] = "La descripcion no es válida..🤔";
-    header("Location: new-entrada.php");
   }
 
+  var_dump(count($errores));
 
 
   if (count($errores) == 0) {
-    $sql = "insert into entradas values(null, $usuario, $categoria, '$titulo', '$descripcion', curdate());";
+    if (isset($_GET['edit'])) {
+      $edit = $_GET['edit'];
+      $usuario_id = $_SESSION['usuario']['id'];
+
+      $sql = "update entradas set titulo = '$titulo', descripcion = '$descripcion', categoria_id = $categoria " .
+        "where id = $edit and usuario_id = $usuario_id ;";
+    } else {
+      $sql = "insert into entradas values(null, $usuario, $categoria, '$titulo', '$descripcion', curdate());";
+    }
+
     $guardar = mysqli_query($db, $sql);
     header("Location: index.php");
   } else {
+
     $_SESSION['errores_entrada'] = $errores;
-    header("Location: new-entrada.php");
+
+    if ($_GET['edit']) {
+      header("Location: editEntrada.php?id=" . $_GET['edit']);
+    } else {
+      header("Location: new-entrada.php");
+    }
   }
 }

@@ -1,0 +1,1 @@
+<h3><?= $nota->getNombre(); ?></h3>

@@ -14,7 +14,9 @@
                     @else
                         <img class="avatar" src="http://www.stickpng.com/assets/images/585e4beacb11b227491c3399.png" alt="">
                     @endif
-                    {{ $image->user->name. ' '.$image->user->surname.' | @'.$image->user->nick }} 
+                    <a href="{{ route('image.detail', ['id' => $image->id])}}">
+                        {{ $image->user->name. ' '.$image->user->surname.' | @'.$image->user->nick }} 
+                    </a>
                 </div>
                 <img src="{{ route('image.file', ['filename' => $image->image_path])}}" class="card-img-top" alt="Error al cargar la imagen">
                 
@@ -33,9 +35,9 @@
                     @else
                         <h6 class="card-subtitle pb-2">No Likes</h6>
                     @endif
-                    <a href="#" class="btn btn-warning">
-                            Comentarios({{count($image->comments)}})
-                        </a>
+                    <a href="#" class="btn btn-primary">
+                        Comentarios <span class="badge badge-light">{{count($image->comments)}}</span>
+                    </a>
                     @if(count($image->comments) > 0)
                         @foreach($image->comments as $comment)
                         

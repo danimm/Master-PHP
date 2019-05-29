@@ -9,3 +9,18 @@
     width: 40px;
     border: 1px solid #bdbdbd;
 }
+
+.card-img-top{
+    height: 500px;
+    object-fit: contain;
+}
+
+.likes {
+    width: 25x;
+    height: 20px;
+    padding-right: 5px;
+}
+
+.text-likes {
+    font-size: 11px;
+}

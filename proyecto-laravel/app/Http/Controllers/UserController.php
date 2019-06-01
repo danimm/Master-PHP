@@ -51,7 +51,7 @@ class UserController extends Controller
             $image_path_name = time() . $image_path->getClientOriginalName();
 
             // Guardarla en la carpeta storage/app/users
-            Storage::disk('users')->put($image_path_name, File::get($image_path));
+            Storage::disk('users')->put($image_path_name, \File::get($image_path));
 
             // Seteo el nombre de la imagen en el objeto user
             $user->image = $image_path_name;

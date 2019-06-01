@@ -10,7 +10,11 @@
     border: 1px solid #bdbdbd;
 }
 
-.card-img-top{
+.avatar-comment {
+    width: 30px;
+}
+
+.card-img-top {
     height: 500px;
     object-fit: contain;
 }

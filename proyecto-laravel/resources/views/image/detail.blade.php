@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-11">
+        <div class="col-md-8">
             @include('includes.message')
             <div class="card mb-4">
                 <div class="card-header">
@@ -49,6 +49,30 @@
                     </form>
                         
                     
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                <p>{{ count($image->comments)}} comentarios</p>
+                </div>
+                <div class="card-body">
+                    @if(count($image->comments) > 0)
+                    @foreach($image->comments as $comment)
+                    <img class="avatar avatar-comment" src="{{ route('user.avatar', ['filename' =>$comment->user->image]) }}" alt="">
+                    <span>{{$comment->user->nick.' | '}}</span><span style="color:grey" style="font-size:10px">{{ \FormatTime::LongTimeFilter($comment->created_at)}}</span>
+                    <p class="card-text">
+                        {{$comment->content}}
+                    @if (Auth::check() && ($comment->user_id == Auth::user()->id) || $comment->image->user_id == Auth::user()->id)
+                    <a class="btn btn-sm btn-danger" href="{{ route('comment.delete', ['id' => $comment->id])}}">
+                        Borrar comentario
+                    </a>
+                    @endif
+                    </p>
+                    @endforeach
+                    @else <p class="card-text">Todavía no existen comentarios para esta foto</p>
+                    @endif
                 </div>
             </div>
         </div>

@@ -33,17 +33,16 @@
                     @else
                         <h6 class="card-subtitle pb-2">No Likes</h6>
                     @endif
-                    <a href="#" class="btn btn-warning">
-                            Comentarios({{count($image->comments)}})
-                        </a>
-                    @if(count($image->comments) > 0)
-                        @foreach($image->comments as $comment)
+                    
+                    <form action="" method="POST">
+                        @csrf
+                        <input type="hidden" name="image_id" value="{{$image->id}}">
+                        <p>
+                            <textarea class="form-control" name="content" required id="" cols="10" rows="4"></textarea>
+                        </p>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </form>
                         
-                        <p class="card-text">{{$comment->user->name.': '.$comment->content}}</p>
-                        @endforeach
-                    @else
-                        {{-- <p class="card-text">Todavía no existen comentarios para esta foto</p> --}}
-                    @endif
                     
                 </div>
             </div>

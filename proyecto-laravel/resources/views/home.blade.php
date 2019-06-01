@@ -43,9 +43,9 @@
                         
                         <p class="card-text">{{$comment->user->name.': '.$comment->content}}</p>
                         @endforeach
-                    @else
                         {{-- <p class="card-text">Todavía no existen comentarios para esta foto</p> --}}
                     @endif
+                    <p style="color:grey">{{ \FormatTime::LongTimeFilter($image->created_at)}}</p>
                     
                 </div>
             </div>

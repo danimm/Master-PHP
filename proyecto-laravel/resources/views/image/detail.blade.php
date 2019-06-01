@@ -13,7 +13,8 @@
                     @else
                         <img class="avatar" src="http://www.stickpng.com/assets/images/585e4beacb11b227491c3399.png" alt="">
                     @endif
-                    {{ $image->user->name. ' '.$image->user->surname.' | @'.$image->user->nick }} 
+                    {{ $image->user->name. ' '.$image->user->surname.' | @'.$image->user->nick }}
+                    <p style="color:grey">{{ \FormatTime::LongTimeFilter($image->created_at)}}</p>
                 </div>
                 <img src="{{ route('image.file', ['filename' => $image->image_path])}}" class="card-img-top" alt="Error al cargar la imagen">
                 

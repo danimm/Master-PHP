@@ -5,7 +5,6 @@
     <div class="row justify-content-center">
         <div class="col-md-11">
             @include('includes.message')
-                
             <div class="card mb-4">
                 <div class="card-header">
                     @if($image->user->image)
@@ -34,11 +33,17 @@
                         <h6 class="card-subtitle pb-2">No Likes</h6>
                     @endif
                     
-                    <form action="" method="POST">
+                    <form action="{{ route('comment.save') }}" method="POST">
                         @csrf
                         <input type="hidden" name="image_id" value="{{$image->id}}">
-                        <p>
-                            <textarea class="form-control" name="content" required id="" cols="10" rows="4"></textarea>
+                        <p> 
+                            <textarea class="form-control {{ $errors->has('content') ? 'is-invalid' : '' }}" name="content" id="" cols="10" rows="4">
+                            </textarea>
+                            @if ($errors->has('content'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('content')}}</strong>
+                            </span>
+                            @endif
                         </p>
                         <button type="submit" class="btn btn-primary">Enviar</button>
                     </form>

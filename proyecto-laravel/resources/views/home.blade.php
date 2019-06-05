@@ -18,7 +18,9 @@
                         {{ $image->user->name. ' '.$image->user->surname.' | @'.$image->user->nick }} 
                     </a>
                 </div>
-                <img src="{{ route('image.file', ['filename' => $image->image_path])}}" class="card-img-top" alt="Error al cargar la imagen">
+                <a href="{{ route('image.detail', ['id' => $image->id])}}">
+                    <img src="{{ route('image.file', ['filename' => $image->image_path])}}" class="card-img-top" alt="Error al cargar la imagen">
+                </a>
                 
                 <div class="card-body">
                     @if (session('status'))
@@ -35,19 +37,21 @@
                     @else
                         <h6 class="card-subtitle pb-2">No Likes</h6>
                     @endif
+                    
                     <a href="#" class="btn btn-primary">
-                        Comentarios <span class="badge badge-light">{{count($image->comments)}}</span>
+                        Comentarios: <span class="badge badge-light">{{count($image->comments)}}</span>
                     </a>
-                    @if(count($image->comments) > 0)
-                        @foreach($image->comments as $comment)
+                    {{-- @if(count($image->comments) > 0) --}}
+                        {{-- @foreach($image->comments as $comment)
                         
                         <p class="card-text">{{$comment->user->name.': '.$comment->content}}</p>
-                        @endforeach
+                        @endforeach --}}
                         {{-- <p class="card-text">Todavía no existen comentarios para esta foto</p> --}}
-                    @endif
+                    {{-- @endif --}}
                     <p style="color:grey">{{ \FormatTime::LongTimeFilter($image->created_at)}}</p>
                     
                 </div>
+
             </div>
             @endforeach
             <!-- Paginación -->

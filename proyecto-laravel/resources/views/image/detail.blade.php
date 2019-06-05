@@ -45,7 +45,7 @@
                             </span>
                             @endif
                         </p>
-                        <button type="submit" class="btn btn-primary">Enviar</button>
+                        <button type="submit" class="btn btn-primary">Enviar Comentario</button>
                     </form>
                         
                     
@@ -55,7 +55,10 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                <p>{{ count($image->comments)}} comentarios</p>
+                <p>
+                    {{ count($image->comments)}}
+                    {{ count($image->comments) > 1 ? 'comentarios' : 'comentario'}}
+                </p>
                 </div>
                 <div class="card-body">
                     @if(count($image->comments) > 0)
@@ -65,9 +68,9 @@
                     <p class="card-text">
                         {{$comment->content}}
                     @if (Auth::check() && ($comment->user_id == Auth::user()->id) || $comment->image->user_id == Auth::user()->id)
-                    <a class="btn btn-sm btn-danger" href="{{ route('comment.delete', ['id' => $comment->id])}}">
-                        Borrar comentario
-                    </a>
+                        <a class="btn btn-sm btn-danger" href="{{ route('comment.delete', ['id' => $comment->id])}}">
+                            Borrar comentario
+                        </a>
                     @endif
                     </p>
                     @endforeach

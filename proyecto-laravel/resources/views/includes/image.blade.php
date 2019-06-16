@@ -5,7 +5,7 @@
       @else
           <img class="avatar" src="http://www.stickpng.com/assets/images/585e4beacb11b227491c3399.png" alt="">
       @endif
-      <a href="{{ route('image.detail', ['id' => $image->id])}}">
+      <a href="{{ route('profile', ['id' => $image->user->id])}}">
           {{ $image->user->name. ' '.$image->user->surname.' | @'.$image->user->nick }} 
       </a>
   </div>

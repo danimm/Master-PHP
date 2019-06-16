@@ -28,3 +28,16 @@
 .text-likes {
     font-size: 11px;
 }
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(auto-fill, 250px);
+    grid-gap: 10px;
+}
+
+.img-grid {
+    object-fit: cover;
+    width: 100%;
+    height: 250px;
+}

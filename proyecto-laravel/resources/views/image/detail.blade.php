@@ -24,7 +24,18 @@
                     </div>
                     @endif
                     <h5 class="card-title">
-                        <img src="{{asset('images/heart.png')}}" class="likes"/> 
+                        <!-- Comprobar si el usuario le dió like -->
+                        <?php $user_like = false; ?>
+                        @foreach ($image->likes as $like)
+                            @if ($like->user_id == Auth::user()->id)
+                                <?php $user_like = true; ?>
+                            @endif
+                        @endforeach
+                        @if ($user_like)
+                            <img src="{{asset('images/heart-rojo.png')}}" data-id="{{$image->id}}" class="btn-dislike likes"/>
+                        @else
+                            <img src="{{asset('images/heart.png')}}" data-id="{{$image->id}}" class="likes btn-like"/> 
+                        @endif
                         {{ $image->description }}
                     </h5>
                     @if(count($image->likes) > 0)

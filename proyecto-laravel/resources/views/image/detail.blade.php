@@ -43,7 +43,14 @@
                     @else
                         <h6 class="card-subtitle pb-2">No Likes</h6>
                     @endif
-                    
+                    @if (Auth::user() && $image->user_id == Auth::user()->id)
+                        <a href="{{ route('image.delete', ['id' => $image->id]) }}">
+                            <button class="btn btn-outline-danger mt-2 mb-2">Eliminar prublicación</button>
+                        </a>
+                        <a href="#">
+                            <button class="btn btn-outline-secondary mt-2 mb-2">Editar prublicación</button>
+                        </a>
+                    @endif
                     <form action="{{ route('comment.save') }}" method="POST">
                         @csrf
                         <input type="hidden" name="image_id" value="{{$image->id}}">

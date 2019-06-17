@@ -50,6 +50,7 @@ Route::get('/subir-imagen', 'ImageController@create')->name('image.create');
 Route::post('/image/save', 'ImageController@save')->name('image.save');
 Route::get('/image/file/{filename}', 'ImageController@getImage')->name('image.file');
 Route::get('/image/{id}', 'ImageController@detail')->name('image.detail');
+Route::get('/image/delete/{id}', 'ImageController@delete')->name('image.delete');
 
 // Comments Controller
 Route::post('/comment/save', 'CommentController@save')->name('comment.save');

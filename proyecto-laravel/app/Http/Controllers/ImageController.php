@@ -1,12 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+
 use App\Image;
+use App\Comment;
+use App\Like;
+
+
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class ImageController extends Controller
 {
@@ -63,5 +68,43 @@ class ImageController extends Controller
         return view('image.detail', [
             'image' => $image
         ]);
+    }
+
+    public function delete($id){
+        $user = Auth::user();
+        $image = Image::find($id);
+        $comments = Comment::where('image_id', $id)->get();
+        $likes = Like::where('image_id', $id)->get();
+
+        if ($user && $image && $image->user_id == $user->id) {
+            //Eliminar Comentarios
+            if ($comments && count($comments) >= 1) {
+                foreach ($comments as $comment) {
+                    $comment->delete();
+                }
+            }
+
+            //Eliminar likes
+            if ($likes && count($likes) >= 1) {
+                foreach ($likes as $like) {
+                    $like->delete();
+                }
+            }
+
+            //Eliminar ficheros de imagen
+            Storage::disk('images')->delete($image->image_path);
+
+            //Eliminar registro de la imagen
+            $image->delete();
+
+
+            // Enviar un mensaje
+            $message = ['message' => 'Imagen borrada correctamente'];
+
+        } else {
+            $message = ['message' => 'Error al borrar la imagen..'];
+        } 
+        // Redirección
+        return redirect()->route('home')->with($message);
     }
 }

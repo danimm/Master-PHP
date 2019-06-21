@@ -16,7 +16,7 @@
                     <p style="color:grey">{{ \FormatTime::LongTimeFilter($image->created_at)}}</p>
                 </div>
                 <img src="{{ route('image.file', ['filename' => $image->image_path])}}" class="card-img-top" alt="Error al cargar la imagen">
-                
+
                 <div class="card-body">
                     @if (session('status'))
                     <div class="alert alert-success" role="alert">
@@ -34,7 +34,7 @@
                         @if ($user_like)
                             <img src="{{asset('images/heart-rojo.png')}}" data-id="{{$image->id}}" class="btn-dislike likes"/>
                         @else
-                            <img src="{{asset('images/heart.png')}}" data-id="{{$image->id}}" class="likes btn-like"/> 
+                            <img src="{{asset('images/heart.png')}}" data-id="{{$image->id}}" class="likes btn-like"/>
                         @endif
                         {{ $image->description }}
                     </h5>
@@ -44,17 +44,43 @@
                         <h6 class="card-subtitle pb-2">No Likes</h6>
                     @endif
                     @if (Auth::user() && $image->user_id == Auth::user()->id)
-                        <a href="{{ route('image.delete', ['id' => $image->id]) }}">
-                            <button class="btn btn-outline-danger mt-2 mb-2">Eliminar prublicación</button>
+                        <a href="{{ route('image.edit', ['id' => $image->id]) }}">
+                            <button class="btn btn-success mt-2 mb-2">Editar prublicación</button>
                         </a>
-                        <a href="#">
-                            <button class="btn btn-outline-secondary mt-2 mb-2">Editar prublicación</button>
-                        </a>
+
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#MyModal">
+                            Eliminar publicación
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="MyModal" tabindex="-1" role="dialog" aria-labelledby="MyModal" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="MyModal">¿Estás seguro?</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <div class="modal-body">
+                                <p>Si eliminas está publicación no podrás recuperarla de ninguna forma, ¿Seguro que quieres borrarla?</p>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <a href="{{ route('image.delete', ['id' => $image->id]) }}">
+                                        <button class="btn btn-danger">Eliminar prublicación</button>
+                                    </a>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
                     @endif
                     <form action="{{ route('comment.save') }}" method="POST">
                         @csrf
                         <input type="hidden" name="image_id" value="{{$image->id}}">
-                        <p> 
+                        <p>
                             <textarea class="form-control {{ $errors->has('content') ? 'is-invalid' : '' }}" name="content" id="" cols="10" rows="4">
                             </textarea>
                             @if ($errors->has('content'))
@@ -65,8 +91,8 @@
                         </p>
                         <button type="submit" class="btn btn-primary">Enviar Comentario</button>
                     </form>
-                        
-                    
+
+
                 </div>
             </div>
         </div>

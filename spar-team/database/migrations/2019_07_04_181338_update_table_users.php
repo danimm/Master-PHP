@@ -17,11 +17,11 @@ class UpdateTableUsers extends Migration
             $table->string('surname');
             $table->string('initial');
             $table->string('role')->default('user');
-            $table->integer('phone')->nullable();;
-            $table->string('address')->nullable();;
-            $table->integer('postcode')->nullable();;
-            $table->string('place')->nullable();;
-            $table->string('image')->nullable();;
+            $table->integer('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->integer('postcode')->nullable();
+            $table->string('place')->nullable();
+            $table->string('image')->nullable();
         });
     }
 

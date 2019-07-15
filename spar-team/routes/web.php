@@ -23,3 +23,6 @@ Route::get('/users', 'UserController@index')->name('users');
 Route::get('/user/avatar/{filename}', 'UserController@getImage')->name('user.avatar');
 Route::get('/config', 'UserController@config')->name('config');
 Route::post('user/update', 'UserController@update')->name('user.update');
+
+// Routes ShopsController
+Route::get('/shops', 'SparController@index')->name('shops');

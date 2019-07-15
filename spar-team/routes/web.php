@@ -26,3 +26,5 @@ Route::post('user/update', 'UserController@update')->name('user.update');
 
 // Routes ShopsController
 Route::get('/shops', 'SparController@index')->name('shops');
+Route::get('/shops/create', 'SparController@create')->name('shops.create');
+Route::post('shops/store', 'SparController@store')->name('shops.store');

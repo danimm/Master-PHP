@@ -12,7 +12,22 @@ class SparController extends Controller
         $data = Spar::first();
 
         // return response()->json($data, 200);
-
         return view('spar.index', ['data' => $data]);
+    }
+
+    public function create(){
+        return view('spar.create');
+    }
+
+    public function store(Request $request){
+        // Validación
+
+        // Recoger los datos
+
+        // Asignar valores al nuevo objeto
+
+        // guardar
+
+        // Redirección
     }
 }

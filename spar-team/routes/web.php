@@ -28,3 +28,8 @@ Route::post('user/update', 'UserController@update')->name('user.update');
 Route::get('/shops', 'SparController@index')->name('shops');
 Route::get('/shops/create', 'SparController@create')->name('shops.create');
 Route::post('shops/store', 'SparController@store')->name('shops.store');
+Route::get('/shops/edit/{id}', 'SparController@edit')->name('shops.edit');
+Route::post('/shops/update/{id}', 'SparController@update')->name('shops.update');
+Route::get('/shops/delete/{id}', 'SparController@delete')->name('shops.delete');
+
+// Route::resource('/shops', 'ShopController');

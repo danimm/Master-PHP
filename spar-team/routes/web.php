@@ -33,3 +33,7 @@ Route::post('/shops/update/{id}', 'SparController@update')->name('shops.update')
 Route::get('/shops/delete/{id}', 'SparController@delete')->name('shops.delete');
 
 // Route::resource('/shops', 'ShopController');
+
+// Catman Routes
+Route::get('/catman', 'CatmanController@index')->name('catman.index');
+Route::resource('/catman', 'CatmanController');

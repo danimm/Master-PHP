@@ -4,3 +4,13 @@
     height: 40px;
     border: 1px solid #bdbdbd;
 }
+
+
+/* Toggled State */
+input[type=checkbox]:checked~span {
+    display: inline;
+}
+
+p #apuntado {
+    color: red;
+}
